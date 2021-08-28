@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "388538077701",
+    "project_id": "avoca-ac122",
+    "storage_bucket": "avoca-ac122.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388538077701:android:19e761659d7f994f64026c",
+        "android_client_info": {
+          "package_name": "rev.avocat.avocat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "388538077701-caruddosttag5ogafom39ngfpbumoeof.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7y5ed_yQHz9-OLMegZaGRzFCPfrD0fJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "388538077701-caruddosttag5ogafom39ngfpbumoeof.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388538077701:android:1abdd001549d3efd64026c",
+        "android_client_info": {
+          "package_name": "rev.avocat.user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "388538077701-caruddosttag5ogafom39ngfpbumoeof.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7y5ed_yQHz9-OLMegZaGRzFCPfrD0fJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "388538077701-caruddosttag5ogafom39ngfpbumoeof.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
