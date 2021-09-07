@@ -1,127 +1,76 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:avocat/Widget/Button.dart';
-import 'package:avocat/constant.dart';
+import 'package:avocat/Models/Announcement.dart';
+import 'package:avocat/Widget/announcementsCard.dart';
 
-import 'Addannouncements.dart';
+import '../constant.dart';
 
 class Announcements extends StatelessWidget {
-  const Announcements({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: primaryColor,
         centerTitle: true,
+        backgroundColor: primaryColor,
         title: Text(
-          'استشارة',
+          'استشاراتي',
           style: TextStyle(
-              fontFamily: 'samt',
               fontWeight: FontWeight.bold,
               color: bgColor,
+              fontFamily: 'samt',
               fontSize: 30),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.only(bottom: 24, top: 24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.only(left: 12, right: 12),
-                child: Abutton(
-                    size: Size(400, 100),
-                    onpressed: () {
-                      Get.bottomSheet(Addannouncements(),
-                          barrierColor: primaryColor.withOpacity(0.15));
-                    },
+      body: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('Announcement')
+              .where('status', isEqualTo: 'valid')
+              .orderBy('id', descending: true)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data!.docs.length > 0) {
+                return ListView.builder(
+                    padding: EdgeInsets.only(bottom: 24, top: 12),
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      Announcement announcement = Announcement.fromJson(
+                          snapshot.data!.docs[index].data()
+                              as Map<String, dynamic>);
+                      if (announcement.avocat != null) {
+                        if (announcement.avocat!
+                            .contains(FirebaseAuth.instance.currentUser!.uid)) {
+                          return Container();
+                        } else {
+                          return AnnouncementsCard(
+                              announcement: announcement, me: false);
+                        }
+                      } else {
+                        return AnnouncementsCard(
+                            announcement: announcement, me: false);
+                      }
+                    });
+              } else {
+                return Center(
                     child: Text(
-                      'إضافة استشارة',
-                      style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: secondaryColor),
-                    ),
-                    colors: bgColor),
-              ),
-              Container(
-                margin:
-                    EdgeInsets.only(top: 12, left: 12, right: 12, bottom: 12),
-                child: Abutton(
-                    size: Size(400, 100),
-                    onpressed: () => notNowPopup(),
-                    child: Text(
-                      'طلب استشارة شخصية',
-                      style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: primaryColor),
-                    ),
-                    colors: bgColor),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 12, right: 12, bottom: 12),
-                child: Abutton(
-                    size: Size(400, 100),
-                    onpressed: () => notNowPopup(),
-                    child: Text(
-                      'طلب تحرير مذكرة جوابية',
-                      style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: primaryColor),
-                    ),
-                    colors: bgColor),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 12, right: 12, bottom: 12),
-                child: Abutton(
-                    size: Size(400, 100),
-                    onpressed: () => notNowPopup(),
-                    child: Text(
-                      'طلب تحرير عريضة افتتاح دعوى',
-                      style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: primaryColor),
-                    ),
-                    colors: bgColor),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 12, right: 12),
-                child: Abutton(
-                    size: Size(400, 100),
-                    onpressed: () => notNowPopup(),
-                    child: Text(
-                      'طلب تحرير شكوى',
-                      style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: primaryColor),
-                    ),
-                    colors: bgColor),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Future<dynamic> notNowPopup() {
-    return Get.defaultDialog(
-      confirm: Container(),
-      cancelTextColor: secondaryColor,
-      buttonColor: secondaryColor,
-      textCancel: 'حسنا',
-      onConfirm: () => Get.back(),
-      title: 'معلومة',
-      titleStyle: TextStyle(color: primaryColor, fontWeight: FontWeight.w600),
-      middleText: " هذه الخدمة غير متوفزة الآن",
-      middleTextStyle: TextStyle(color: primaryColor),
+                  'لا يوجد استشارة',
+                  style: TextStyle(
+                    color: primaryColor,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ));
+              }
+            } else {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: primaryColor,
+                ),
+              );
+            }
+          }),
     );
   }
 }

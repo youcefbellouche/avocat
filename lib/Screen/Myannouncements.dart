@@ -25,7 +25,8 @@ class Myannouncements extends StatelessWidget {
       body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection('Announcement')
-              .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+              .where('avocat',
+                  arrayContains: FirebaseAuth.instance.currentUser!.uid)
               .orderBy('id', descending: true)
               .snapshots(),
           builder: (context, snapshot) {
@@ -39,7 +40,8 @@ class Myannouncements extends StatelessWidget {
                       Announcement announcement = Announcement.fromJson(
                           snapshot.data!.docs[index].data()
                               as Map<String, dynamic>);
-                      return AnnouncementsCard(announcement: announcement);
+                      return AnnouncementsCard(
+                          announcement: announcement, me: true);
                     });
               } else {
                 return Center(

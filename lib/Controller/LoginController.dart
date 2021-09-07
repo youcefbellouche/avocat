@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as fuser;
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:avocat/Models/User.dart';
@@ -40,8 +41,8 @@ class LoginController extends GetxController {
             snackPosition: SnackPosition.BOTTOM);
       }
     }).then((value) async {
-      print(fuser.FirebaseAuth.instance.currentUser!.uid);
-      await user.getUser().whenComplete(() {
+      print(fuser.FirebaseAuth.instance.currentUser!.getIdToken());
+      await user.getUser().whenComplete(() async {
         if (user.user.type != 'avocat') {
           fuser.FirebaseAuth.instance.signOut();
           Get.snackbar("خطأ", "هناك خطأ في كلمة المرور أو البريد الإلكتروني",
@@ -49,7 +50,14 @@ class LoginController extends GetxController {
               backgroundColor: Colors.redAccent,
               snackPosition: SnackPosition.BOTTOM);
         } else {
-          Get.offAndToNamed("/home");
+          try {
+            FirebaseMessaging.instance.subscribeToTopic('avocatAnnonce');
+
+            Get.offAndToNamed("/home");
+          } catch (e) {
+            fuser.FirebaseAuth.instance.signOut();
+            Get.offAndToNamed("/login");
+          }
         }
         loading = false.obs;
         update();

@@ -15,14 +15,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       initialRoute: '/home',
-      // home: LoginV2(),
       locale: Locale('ar', "DZ"),
       getPages: routes,
       debugShowCheckedModeBanner: false,
       title: 'Avocat',
       theme: ThemeData(
-          // fontFamily: 'Almarai',
-          // textTheme: TextTheme(bodyText1: TextStyle(fontFamily: 'Almarai')),
           primaryColor: primaryColor,
           secondaryHeaderColor: secondaryColor,
           fixTextFieldOutlineLabel: true),

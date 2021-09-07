@@ -7,9 +7,12 @@ import 'package:avocat/constant.dart';
 
 import 'Button.dart';
 
+// ignore: must_be_immutable
 class AnnouncementsCard extends StatelessWidget {
-  AnnouncementsCard({Key? key, required this.announcement}) : super(key: key);
+  AnnouncementsCard({Key? key, required this.announcement, required this.me})
+      : super(key: key);
   final Announcement announcement;
+  bool me;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +61,7 @@ class AnnouncementsCard extends StatelessWidget {
                     colors: Colors.white,
                     onpressed: () {
                       Get.to(() => AnnouncemetInfo(
+                            me: me,
                             announcement: announcement,
                           ));
                     },

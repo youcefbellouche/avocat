@@ -9,7 +9,7 @@ class UserController extends GetxController {
   bool loading = true;
   Future getUser() async {
     var result = await FirebaseFirestore.instance
-        .collection("avocat")
+        .collection("Avocats")
         .doc(fUser.FirebaseAuth.instance.currentUser!.uid)
         .get();
     if (result.data() != null) user = User.fromJson(result.data()!);

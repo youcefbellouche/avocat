@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,47 +25,9 @@ class User {
     avatarImg = json["avatarImg"];
     nom = json["nom"];
     prenom = json["prenom"];
-    numero = json["numero"];
+    numero = json["tel"];
     email = json["email"];
-    wilaya = json["wilaya"];
-
     type = json["type"];
-  }
-
-  Future<bool> signup(String password) async {
-    bool isCreated = false;
-    await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email!, password: password)
-        .then((value) async {
-      value.user!.updateDisplayName(nom! + " " + prenom!);
-      uid = value.user!.uid;
-      await FirebaseFirestore.instance.collection("avocat").doc(uid).set({
-        'uid': uid,
-        'email': email,
-        'nom': nom,
-        'prenom': prenom,
-        'wilaya': wilaya,
-        'numero': numero,
-        "type": type,
-      }).catchError((e) {
-        FirebaseAuth.instance.currentUser!.delete();
-        isCreated = false;
-      });
-
-      isCreated = true;
-    }).catchError((e) {
-      String message = e.message;
-      if (message ==
-          "The email address is already in use by another account.") {
-        Get.snackbar("خطأ", "البريد الإلكتروني مسجل في حساب اخر",
-            colorText: Colors.white,
-            backgroundColor: Colors.redAccent,
-            snackPosition: SnackPosition.BOTTOM);
-      }
-      isCreated = false;
-    });
-
-    return isCreated;
   }
 
   Future<bool> validatePassword(String pass) async {

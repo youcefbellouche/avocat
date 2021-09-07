@@ -5,8 +5,8 @@ class Announcement {
   String? content;
   DateTime? date;
   String? uid;
-  List<String>? answer;
-  List<String>? avocat;
+  List<dynamic>? answer;
+  List<dynamic>? avocat;
   String? status;
   String? statusText;
 
@@ -20,13 +20,6 @@ class Announcement {
       this.status,
       this.statusText});
 
-  Map<String, String> dictionnaire = {
-    'novalid': 'لا يتم معالجتها حاليًا',
-    'valid': 'يتم معالجتها',
-    'finish': 'اكتمل العلاج',
-    'cancel': 'إلغاء العلاج'
-  };
-
   Announcement.fromJson(Map<String, dynamic> json) {
     uid = json["uid"];
     content = json["content"];
@@ -37,6 +30,12 @@ class Announcement {
     statusText = dictionnaire[json['status']];
     date = DateTime.fromMillisecondsSinceEpoch(json['id']);
   }
+  Map<String, String> dictionnaire = {
+    'novalid': 'لا يتم معالجتها حاليًا',
+    'valid': 'يتم معالجتها',
+    'finish': 'اكتمل العلاج',
+    'cancel': 'إلغاء العلاج'
+  };
 
   Future<void> add() async {
     try {
