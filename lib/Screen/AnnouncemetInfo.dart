@@ -87,7 +87,7 @@ class AnnouncemetInfo extends StatelessWidget {
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 17)),
                                 content: Text(
-                                  'استشارة :  ${announcement.content!}',
+                                  '${announcement.content!}',
                                   style: TextStyle(fontWeight: FontWeight.w500),
                                 ),
                               ),
@@ -100,7 +100,7 @@ class AnnouncemetInfo extends StatelessWidget {
                                     ? Column(
                                         children: [
                                           Text(
-                                            'جوابي',
+                                            'جوابي :',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w500),
                                           ),

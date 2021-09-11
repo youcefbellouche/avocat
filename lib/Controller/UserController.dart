@@ -23,73 +23,23 @@ class UserController extends GetxController {
   }
 
   updatePhone(String phone) async {
-    await FirebaseFirestore.instance.collection("avocat").doc(user.uid).update({
+    print(fUser.FirebaseAuth.instance.currentUser!.uid);
+    await FirebaseFirestore.instance
+        .collection("Avocats")
+        .doc(fUser.FirebaseAuth.instance.currentUser!.uid)
+        .update({
       "numero": phone,
     }).catchError((e) {
       Get.snackbar("خطأ", "بوجد مشكل في الإنترنت",
           colorText: Colors.white,
           backgroundColor: Colors.redAccent,
           snackPosition: SnackPosition.BOTTOM);
-    }).whenComplete(() {
+    }).then((value) {
       Get.snackbar("تم", "لقت قمت بتغيير رقم الهاتف بنجاح",
           colorText: Colors.white,
           backgroundColor: Colors.green,
           snackPosition: SnackPosition.BOTTOM);
       user.numero = phone;
-      update();
-    });
-  }
-
-  updateWilaya(String wilaya) async {
-    await FirebaseFirestore.instance.collection("avocat").doc(user.uid).update({
-      "wilaya": wilaya,
-    }).catchError((e) {
-      Get.snackbar("خطأ", "بوجد مشكل في الإنترنت",
-          colorText: Colors.white,
-          backgroundColor: Colors.redAccent,
-          snackPosition: SnackPosition.BOTTOM);
-    }).whenComplete(() {
-      Get.snackbar("تم", "لقت قمت بتغيير الولاية بنجاح",
-          colorText: Colors.white,
-          backgroundColor: Colors.green,
-          snackPosition: SnackPosition.BOTTOM);
-      user.wilaya = wilaya;
-      update();
-    });
-  }
-
-  updateDaira(String daira) async {
-    await FirebaseFirestore.instance.collection("avocat").doc(user.uid).update({
-      "daira": daira,
-    }).catchError((e) {
-      Get.snackbar("خطأ", "بوجد مشكل في الإنترنت",
-          colorText: Colors.white,
-          backgroundColor: Colors.redAccent,
-          snackPosition: SnackPosition.BOTTOM);
-    }).whenComplete(() {
-      Get.snackbar("تم", "لقت قمت بتغيير الدائرة بنجاح",
-          colorText: Colors.white,
-          backgroundColor: Colors.green,
-          snackPosition: SnackPosition.BOTTOM);
-
-      update();
-    });
-  }
-
-  updateMairie(String mairie) async {
-    await FirebaseFirestore.instance.collection("avocat").doc(user.uid).update({
-      "mairie": mairie,
-    }).catchError((e) {
-      Get.snackbar("خطأ", "بوجد مشكل في الإنترنت",
-          colorText: Colors.white,
-          backgroundColor: Colors.redAccent,
-          snackPosition: SnackPosition.BOTTOM);
-    }).whenComplete(() {
-      Get.snackbar("تم", "لقت قمت بتغيير البلدية بنجاح",
-          colorText: Colors.white,
-          backgroundColor: Colors.green,
-          snackPosition: SnackPosition.BOTTOM);
-
       update();
     });
   }
