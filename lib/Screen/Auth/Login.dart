@@ -19,8 +19,13 @@ class Login extends StatelessWidget {
       builder: (c) => SafeArea(
         child: Scaffold(
           body: c.loading.value
-              ? Center(
-                  child: CircularProgressIndicator(),
+              ? Container(
+                  color: primaryColor,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                  ),
                 )
               : Container(
                   color: primaryColor,
@@ -40,14 +45,6 @@ class Login extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  Text(
-                                    'أهلا بكم في',
-                                    style: TextStyle(
-                                        fontFamily: 'samt',
-                                        color: secondaryColor,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 30),
-                                  ),
                                   SizedBox(
                                     height: 2,
                                   ),

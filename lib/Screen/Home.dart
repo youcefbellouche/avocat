@@ -1,6 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:avocat/Controller/HomeController.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:avocat/Screen/setting.dart';
@@ -24,61 +24,172 @@ class Home extends StatelessWidget {
     return GetBuilder<HomeController>(
         init: HomeController(),
         builder: (c) => Scaffold(
-              body: _widgetOptions.elementAt(c.selectedWidget.value),
-              bottomNavigationBar: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(16),
-                      topRight: Radius.circular(16)),
-                  color: bgColor,
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 20,
-                      offset: Offset(0, 10),
-                      color: Color(0xff808080),
-                    )
-                  ],
+              appBar: AppBar(
+                centerTitle: true,
+                backgroundColor: primaryColor,
+                title: Text(
+                  'استشاراتي',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: bgColor,
+                      fontFamily: 'samt',
+                      fontSize: 30),
                 ),
-                child: SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15.0, vertical: 8),
-                    child: GNav(
-                      rippleColor: secondaryColor,
-                      hoverColor: secondaryColor,
-                      gap: 8,
-                      activeColor: bgColor,
-                      iconSize: 24,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                      duration: Duration(milliseconds: 400),
-                      tabBackgroundColor: primaryColor,
-                      color: primaryColor,
-                      tabs: [
-                        GButton(
-                          icon: FontAwesomeIcons.listAlt,
-                          iconColor: secondaryColor,
-                          text: 'استشاراتي',
+              ),
+              drawer: Drawer(
+                child: Container(
+                  color: primaryColor,
+                  child: ListView(
+                    children: [
+                      DrawerHeader(
+                        child: Image.asset(
+                          'assets/image/logo-dore.png',
                         ),
-                        GButton(
-                          icon: FontAwesomeIcons.plusSquare,
-                          iconColor: secondaryColor,
-                          text: "استشارة",
-                        ),
-                        GButton(
-                          icon: FontAwesomeIcons.cog,
-                          iconColor: secondaryColor,
-                          text: 'إعدادات',
-                        ),
-                      ],
-                      selectedIndex: 1,
-                      onTabChange: (index) {
-                        c.change(index);
-                      },
-                    ),
+                      ),
+                      DrawerListTile(
+                        title: "الحساب الشخصي",
+                        icons: FontAwesomeIcons.userAlt,
+                        press: () {
+                          c.change(2);
+                        },
+                      ),
+                      DrawerListTile(
+                        title: "تسجيل الخروج",
+                        icons: FontAwesomeIcons.signOutAlt,
+                        press: () {
+                          FirebaseAuth.instance.signOut();
+                          Get.offAllNamed('/login');
+                        },
+                      ),
+                      DrawerListTitle(title: 'خدمة الاستشارات القانونية'),
+                      DrawerListTile(
+                        icons: FontAwesomeIcons.plusSquare,
+                        title: "الإجابة على الاستشارات",
+                        press: () {
+                          c.change(1);
+                        },
+                      ),
+                      DrawerListTile(
+                        icons: FontAwesomeIcons.listAlt,
+                        title: "الإجابات السابقة",
+                        press: () {
+                          c.change(0);
+                        },
+                      ),
+                      DrawerListTitle(title: 'خدمة الانابة قضائية'),
+                      DrawerListTile(
+                        icons: FontAwesomeIcons.plusSquare,
+                        title: "انشاءانابة قضائية",
+                        press: () => notNowPopup(),
+                      ),
+                      DrawerListTile(
+                        icons: FontAwesomeIcons.listAlt,
+                        title: "متابعة الانابة القضائية",
+                        press: () => notNowPopup(),
+                      ),
+                      DrawerListTitle(title: 'تسيير مكتب المحامي'),
+                      DrawerListTile(
+                        icons: FontAwesomeIcons.plusSquare,
+                        title: "تسجيل قضية",
+                        press: () => notNowPopup(),
+                      ),
+                      DrawerListTile(
+                        icons: FontAwesomeIcons.plusSquare,
+                        title: "تسجيل موكل جديد",
+                        press: () => notNowPopup(),
+                      ),
+                      DrawerListTitle(title: 'خدمات متنوعة'),
+                      DrawerListTile(
+                        icons: FontAwesomeIcons.bell,
+                        title: "معلومات مفيدة",
+                        press: () => notNowPopup(),
+                      ),
+                      DrawerListTile(
+                        icons: FontAwesomeIcons.gavel,
+                        title: "مقالات قانونية",
+                        press: () => notNowPopup(),
+                      ),
+                      DrawerListTile(
+                        icons: FontAwesomeIcons.newspaper,
+                        title: "الجريدة الرسمية",
+                        press: () => notNowPopup(),
+                      ),
+                      DrawerListTile(
+                        icons: FontAwesomeIcons.listAlt,
+                        title: "قوانين متنوعة",
+                        press: () => notNowPopup(),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
                   ),
                 ),
               ),
+              body: AnimatedContainer(
+                  duration: Duration(milliseconds: 1000),
+                  child: _widgetOptions.elementAt(c.selectedWidget.value)),
             ));
+  }
+
+  Future<dynamic> notNowPopup() {
+    return Get.defaultDialog(
+      confirm: Container(),
+      cancelTextColor: secondaryColor,
+      buttonColor: secondaryColor,
+      textCancel: 'حسنا',
+      onConfirm: () => Get.back(),
+      title: 'معلومة',
+      titleStyle: TextStyle(color: primaryColor, fontWeight: FontWeight.w600),
+      middleText:
+          "سيتم توفير هذه الخدمات لاحقا ما عدا خدمة الاستشارة القانونية",
+      middleTextStyle: TextStyle(color: primaryColor),
+    );
+  }
+}
+
+class DrawerListTitle extends StatelessWidget {
+  const DrawerListTitle({Key? key, required this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child: Text(
+      title,
+      style: TextStyle(
+          color: secondaryColor, fontSize: 20, fontWeight: FontWeight.w600),
+    ));
+  }
+}
+
+class DrawerListTile extends StatelessWidget {
+  const DrawerListTile({
+    Key? key,
+    required this.title,
+    required this.icons,
+    required this.press,
+  }) : super(key: key);
+
+  final String title;
+  final IconData icons;
+  final VoidCallback press;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: press,
+      horizontalTitleGap: 0.0,
+      leading: FaIcon(
+        icons,
+        color: secondaryColor,
+        size: 16,
+      ),
+      title: Text(
+        title,
+        style: TextStyle(color: bgColor, fontSize: 18),
+      ),
+    );
   }
 }

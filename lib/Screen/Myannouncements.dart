@@ -10,18 +10,6 @@ class Myannouncements extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: primaryColor,
-        title: Text(
-          'استشاراتي',
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: bgColor,
-              fontFamily: 'samt',
-              fontSize: 30),
-        ),
-      ),
       body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection('Announcement')

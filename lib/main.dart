@@ -14,15 +14,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: '/home',
+      initialRoute: '/',
       locale: Locale('ar', "DZ"),
       getPages: routes,
       debugShowCheckedModeBanner: false,
       title: 'Avocat',
       theme: ThemeData(
-          primaryColor: primaryColor,
-          secondaryHeaderColor: secondaryColor,
-          fixTextFieldOutlineLabel: true),
+          primaryColor: primaryColor, secondaryHeaderColor: secondaryColor),
     );
   }
 }

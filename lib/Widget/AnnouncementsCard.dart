@@ -21,13 +21,6 @@ class AnnouncementsCard extends StatelessWidget {
       padding: EdgeInsets.all(12),
       height: 145,
       decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: primaryColor,
-              blurRadius: 10,
-              offset: Offset(0, 5),
-            )
-          ],
           color: primaryColor,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: Colors.black, width: 0.5)),

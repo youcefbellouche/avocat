@@ -18,18 +18,6 @@ class Setting extends StatelessWidget {
     return GetBuilder<FromController>(
         init: FromController(),
         builder: (c) => Scaffold(
-              appBar: AppBar(
-                backgroundColor: primaryColor,
-                centerTitle: true,
-                title: Text(
-                  'إعدادات',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: bgColor,
-                      fontFamily: 'samt',
-                      fontSize: 30),
-                ),
-              ),
               backgroundColor: Colors.grey[200],
               body: ListView(
                 children: [
