@@ -1,6 +1,5 @@
 import 'package:avocat/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/route_manager.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
@@ -14,7 +13,7 @@ class IntroScreen extends StatelessWidget {
         showSkipButton: false,
         isProgress: true,
         isTopSafeArea: true,
-        rtl: true,
+        rtl: false,
         pages: [
           PageViewModel(
             useScrollView: false,
@@ -48,7 +47,7 @@ class IntroScreen extends StatelessWidget {
                   )),
             ),
             bodyWidget: Text(
-              'دمة تعمل اون لاين على مدار اليوم تتيح للمحامي عند الحاجه الاستعانة بأحد المحامين المسجلين في التطبيق والمتواجدين بالمكان المطلوب ، سواء بطلب أجل أو استلام مذكرة جوابية أو لاتخاذ الاجراء القانوني المطالب به ، وذلك من اجل الحصول على الخدمات و تنفيذ الاجراءات القانونية في اقل وقت متاح حفاظا على الوقت . كما يمكن تصوير المذكرة أو مقال الرد وإرساله لطالب الإنابة القضائية في حينه دون الانتظار مطولا ودون عناء التنقل',
+              'خدمة تعمل اون لاين على مدار اليوم تتيح للمحامي عند الحاجه الاستعانة بأحد المحامين المسجلين في التطبيق والمتواجدين بالمكان المطلوب ، سواء بطلب أجل أو استلام مذكرة جوابية أو لاتخاذ الاجراء القانوني المطالب به ، وذلك من اجل الحصول على الخدمات و تنفيذ الاجراءات القانونية في اقل وقت متاح حفاظا على الوقت . كما يمكن تصوير المذكرة أو مقال الرد وإرساله لطالب الإنابة القضائية في حينه دون الانتظار مطولا ودون عناء التنقل',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 17),
             ),
@@ -64,7 +63,7 @@ class IntroScreen extends StatelessWidget {
                   )),
             ),
             bodyWidget: Text(
-              'مع ضغوطات العمل وكثرة التواريخ ينجر عنه نسيان تاریخ قضية ما أو موعد ، يوفر تطبيق محامي أونلاين خدمة تسيير مكتب المحامي التي تعمل على تسهيل مهامي المحامي وتذكيره بجميع الآجال والمواعيد القانونية الخاصة بالاجابة على المذكرات وإيداع ملفات الموضوع وآجال اللاستئناف .',
+              'مع ضغوطات العمل وكثرة التواريخ ينجر عنه نسيان تاریخ قضية ما أو موعد ، يوفر تطبيق محامي أونلاين خدمة تسيير مكتب المحامي التي تعمل على تسهيل مهام المحامي وتذكيره بجميع الآجال والمواعيد القانونية الخاصة بالاجابة على المذكرات وإيداع ملفات الموضوع وآجال اللاستئناف .',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 17),
             ),
@@ -90,10 +89,10 @@ class IntroScreen extends StatelessWidget {
           Get.offNamed('/home');
         },
         next: Icon(
-          Icons.arrow_left_outlined,
+          Icons.arrow_right_outlined,
           color: primaryColor,
         ),
-        done: const Text("انتهى",
+        done: const Text("تسجيل الدخول",
             style: TextStyle(fontWeight: FontWeight.w600, color: primaryColor)),
         dotsDecorator: DotsDecorator(
             activeColor: primaryColor,
